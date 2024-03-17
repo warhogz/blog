@@ -1,0 +1,40 @@
+{% load bootstrap4 %}
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Blog</title>
+	{% bootstrap_css %}
+	{% bootstrap_javascript jquery='full' %}
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
+	<div class="collapse navbar-collapse" id="navbarCollapse">
+		<ul class="navbar-nav ml-auto">
+			{% if request.user.is_authenticated %}
+				<li class="nav-item">
+					<span class="navbar-text">Have a nice day, {{request.user}}!</span>
+				</li>
+                <form class = "nav-link" action="{% url 'logout' %}" method="post"> 
+                    {% csrf_token %} 
+                    <button class="btn btn-link" type="submit">log out</button> 
+                    </form>
+			{% else %}
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'login' %}">Log in</a></li>
+			{% endif %}
+		</ul>
+	</div>
+</nav>
+<main role="main" class="container">
+	<div class="pb-2 mb-2 border-bottom">
+		{% block page_header %}{% endblock page_header %}
+	</div>
+	<div>
+		{% block content %}{% endblock content %}
+	</div>
+</main>
+</body>

@@ -1,0 +1,66 @@
+{% extends 'blogs/base.html' %}
+{% block content %}
+<h1>My Blog</h1>
+
+<style>
+    table.greyGridTable {
+  border: 2px solid #ffffff;
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+}
+table.greyGridTable td,
+table.greyGridTable th {
+  border: 1px solid #ffffff;
+  padding: 3px 4px;
+}
+table.greyGridTable tbody td {
+  font-size: 13px;
+}
+table.greyGridTable td:nth-child(even) {
+  background: #ebebeb;
+}
+table.greyGridTable thead {
+  background: #ffffff;
+  border-bottom: 4px solid #333333;
+}
+table.greyGridTable thead th {
+  font-size: 15px;
+  font-weight: bold;
+  color: #333333;
+  text-align: center;
+  border-left: 2px solid #333333;
+}
+table.greyGridTable thead th:first-child {
+  border-left: none;
+}
+
+</style>
+
+<table class="greyGridTable">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Date</th>
+        <th colspan="3">Actions</th>
+    </tr>
+    </thead>
+   
+    <tbody>
+      {% for post in posts %}
+    <tr>
+        <td>{{post.title}}</td>
+        <td>{{post.date_added}}</td>
+        <td><a href="{% url 'post' post.id%}"> View </a></td>  
+        <td><a href="{% url 'post-update' post.id%}">Update</a></td>  
+        <td><a href="{% url 'post-delete' post.id%}"> Delete </a></td>  
+    </tr>
+    </tbody>
+    {% empty %}
+<h3> you have no posts yet</h3>
+{% endfor %}
+</table>
+
+<a href="{% url 'post-create' %}">Add post</a>
+
+{% endblock content %}
